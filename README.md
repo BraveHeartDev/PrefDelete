@@ -17,6 +17,6 @@ What's New In Version 1.1.0?
 
 Credits:
 ==========
-1- Brave Heart - for code development, english localization, and support additions (support to PreferencesOrganizer2, PreferencesOrganizer7, and PreferencesTag)
-2- ryanb93 - for his cydelete7 code from which I obtained the setuid code and the dpkg uninstallation code. ( https://github.com/ryanb93/CyDelete7 )
-3- Benoit Cornier for French Localization
+- Brave Heart - for code development, english localization, and support additions (support to PreferencesOrganizer2, PreferencesOrganizer7, and PreferencesTag)
+- ryanb93 - for his cydelete7 code from which I obtained the setuid code and the dpkg uninstallation code. ( https://github.com/ryanb93/CyDelete7 )
+- Benoit Cornier for French Localization
