@@ -5,4 +5,5 @@ This is the source code of PrefDelete. It has been posted in order to help peopl
 Credits:
 ==========
 1- Brave Heart - for code development
+
 2- ryanb93 - for his cydelete7 code from which I obtained the setuid code and the dpkg uninstallation code. ( https://github.com/ryanb93/CyDelete7 )
