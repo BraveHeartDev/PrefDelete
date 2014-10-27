@@ -1,0 +1,7 @@
+"ERROR_CANCEL_TITLE" = "أقفل";
+"ERROR_TITLE" = "خطأ";
+"FOUND_MESSAGE" = "لقد وجد %@ - %@ . هل تريد ان تحذفها؟";
+"FOUND_OK_TITLE" = "احذف";
+"FOUND_TITLE" = "الوضع";
+"NO" = "لا";
+"NOT_FOUND_MESSAGE" = "لم يوجد البرنامج. هذا الصف ليس صفا لبرامج Cydia. (إنما هو صف ملك الجهاز او ملك برامج AppStore)";

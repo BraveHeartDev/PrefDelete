@@ -1,9 +1,7 @@
 #import <dlfcn.h>
 #import <Preferences/Preferences.h>
 
-#define FOUND_TITLE @"Status"
-#define FOUND_OK_TITLE @"Uninstall"
-#define ERROR_CANCLE_TITLE @"Dismiss"
+#define NSLocalizedStringP(key, comment) [[NSBundle bundleWithPath:@"/Library/Application Support/PrefDelete"] localizedStringForKey:(key) value:@"" table:nil]
 
 @interface PrefsListController : NSObject
 -(void)reloadSpecifiers;
@@ -59,10 +57,10 @@ void searchDirectory(NSString* path, NSMutableArray** allDirectories)
 @implementation TweakClass
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	if([alertView.title isEqualToString:FOUND_TITLE])
+	if([alertView.title isEqualToString:NSLocalizedStringP(@"FOUND_TITLE",nil)])
 	{
 		NSString *buttonTitle = [alertView buttonTitleAtIndex:buttonIndex];
-		if([buttonTitle isEqualToString:FOUND_OK_TITLE])
+		if([buttonTitle isEqualToString:NSLocalizedStringP(@"FOUND_OK_TITLE",nil)])
 		{
 			NSString *command = [NSString stringWithFormat:@"/usr/libexec/PrefDelete/setuid /usr/libexec/PrefDelete/uninstallPref.sh %@", bundleID];
 			outputForShellCommand(command);
@@ -79,7 +77,7 @@ void searchDirectory(NSString* path, NSMutableArray** allDirectories)
 		bundleID = nil;
 
 		PSTableCell *cell = (PSTableCell *)recognizer.view;
-		NSString *title = cell.specifier.identifier;
+		NSString *title = [cell.specifier propertyForKey:@"label"];//cell.specifier.identifier;
 
 		NSString *dir = @"/Library/PreferenceLoader/Preferences";
 		NSMutableArray *alldirs = [[NSMutableArray alloc]init];
@@ -143,13 +141,13 @@ void searchDirectory(NSString* path, NSMutableArray** allDirectories)
 
 		if(bundleID)
 		{
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:FOUND_TITLE message:[NSString stringWithFormat:@"%@ (%@) has been found. Do you wish to uninstall?", title, bundleID] delegate:self cancelButtonTitle:@"NO" otherButtonTitles:FOUND_OK_TITLE,nil];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedStringP(@"FOUND_TITLE",nil) message:[NSString stringWithFormat:NSLocalizedStringP(@"FOUND_MESSAGE",nil), title, bundleID] delegate:self cancelButtonTitle:NSLocalizedStringP(@"NO",nil) otherButtonTitles:NSLocalizedStringP(@"FOUND_OK_TITLE",nil),nil];
 
 			[alert show];
 		}
 		else
 		{
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Package not found. This cell is not a tweak cell (system cell/App cell)." delegate:nil cancelButtonTitle:ERROR_CANCLE_TITLE otherButtonTitles:nil];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedStringP(@"ERROR_TITLE",nil) message:NSLocalizedStringP(@"NOT_FOUND_MESSAGE",nil) delegate:nil cancelButtonTitle:NSLocalizedStringP(@"ERROR_CANCEL_TITLE",nil) otherButtonTitles:nil];
 
 			[alert show];
 		}
@@ -161,17 +159,31 @@ TweakClass *tweak = nil;
 
 %ctor
 {
-	dlopen("/Library/MobileSubstrate/DynamicLibraries/PreferenceOrganizer.dylib", RTLD_NOW | RTLD_GLOBAL);
-	dlopen("/Library/MobileSubstrate/DynamicLibraries/PreferenceOrganizer2.dylib", RTLD_NOW | RTLD_GLOBAL);
 	tweak = [[TweakClass alloc]init];
 }
 
+//Support for PreferenceTag
+%hook TagFolder
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	UITableViewCell *cell = %orig;
+
+	//Normal, since outside section
+	controller = (PSListController*)self;
+
+	PSTableCell *tableCell = (PSTableCell*)cell;
+	UILongPressGestureRecognizer *tapRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:tweak action:@selector(longPress:)];
+	tapRecognizer.minimumPressDuration = 0.8; //seconds
+	[tableCell addGestureRecognizer:tapRecognizer];
+
+	return cell;
+}
+%end
 
 //Support for PreferenceOrganizer2
 @interface TweakSpecifiersController : PSListController
 - (NSArray *)specifiers;
 @end
-
 %hook TweakSpecifiersController
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

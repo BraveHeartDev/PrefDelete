@@ -1,0 +1,7 @@
+"FOUND_TITLE" = "Status";
+"FOUND_OK_TITLE" = "Uninstall";
+"FOUND_MESSAGE" = "%@ (%@) has been found. Do you wish to uninstall?";
+"ERROR_TITLE" = "Error";
+"ERROR_CANCEL_TITLE" = "Dismiss";
+"NOT_FOUND_MESSAGE" = "Package not found. This cell is not a tweak cell (system cell/App cell).";
+"NO" = "NO";

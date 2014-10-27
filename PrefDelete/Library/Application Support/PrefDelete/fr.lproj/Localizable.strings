@@ -1,0 +1,7 @@
+"ERROR_CANCEL_TITLE" = "Annuler";
+"ERROR_TITLE" = "Erreur";
+"FOUND_MESSAGE" = "%@ (%@) a été trouvé. Voulez-vous le désinstaller?";
+"FOUND_OK_TITLE" = "Désinstaller";
+"FOUND_TITLE" = "Désinstallation";
+"NO" = "NON";
+"NOT_FOUND_MESSAGE" = "Paquet introuvable. Cette cellule n'est pas une cellule de tweak (Cellule du système/Cellule de l'app).";
