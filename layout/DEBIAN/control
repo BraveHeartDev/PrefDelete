@@ -1,0 +1,9 @@
+Package: com.braveheart.prefdelete
+Name: PrefDelete
+Depends: mobilesubstrate
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: Brave Heart
+Author: Brave Heart
+Section: Tweaks
+Version: 1.1.0
