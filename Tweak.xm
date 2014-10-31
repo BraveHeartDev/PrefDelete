@@ -52,21 +52,34 @@ void searchDirectory(NSString* path, NSMutableArray** allDirectories)
 }
 
 @interface TweakClass: NSObject <UIAlertViewDelegate>
+@property (nonatomic) BOOL needsRespring;
+
 -(void)longPress:(UILongPressGestureRecognizer *)recognizer;
 @end
 @implementation TweakClass
+@synthesize needsRespring;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+	NSString *buttonTitle = [alertView buttonTitleAtIndex:buttonIndex];
 	if([alertView.title isEqualToString:NSLocalizedStringP(@"FOUND_TITLE",nil)])
 	{
-		NSString *buttonTitle = [alertView buttonTitleAtIndex:buttonIndex];
 		if([buttonTitle isEqualToString:NSLocalizedStringP(@"FOUND_OK_TITLE",nil)])
 		{
 			NSString *command = [NSString stringWithFormat:@"/usr/libexec/PrefDelete/setuid /usr/libexec/PrefDelete/uninstallPref.sh %@", bundleID];
 			outputForShellCommand(command);
 			[NSThread sleepForTimeInterval:1];
 			[controller reloadSpecifiers];
+
+			if(needsRespring)
+			{
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedStringP(@"RESPRING_TITLE",nil) message:NSLocalizedStringP(@"RESPRING_MESSAGE",nil) delegate:self cancelButtonTitle:NSLocalizedStringP(@"RESPRING_BUTTON",nil) otherButtonTitles:nil];
+				[alert show];
+			}
 		}
+	}
+	else if([alertView.title isEqualToString:NSLocalizedStringP(@"RESPRING_TITLE",nil)])
+	{
+		system("killall backboardd");
 	}
 }
 
@@ -75,6 +88,7 @@ void searchDirectory(NSString* path, NSMutableArray** allDirectories)
 	if( recognizer.state == UIGestureRecognizerStateBegan )
 	{
 		bundleID = nil;
+		needsRespring = false;
 
 		PSTableCell *cell = (PSTableCell *)recognizer.view;
 		NSString *title = [cell.specifier propertyForKey:@"label"];//cell.specifier.identifier;
@@ -141,6 +155,25 @@ void searchDirectory(NSString* path, NSMutableArray** allDirectories)
 
 		if(bundleID)
 		{
+			NSString *dependanciesFile = [NSString stringWithContentsOfFile:@"/var/lib/dpkg/status" encoding:NSUTF8StringEncoding error:nil];
+			NSArray *dependanciesArray = [dependanciesFile componentsSeparatedByString:@"Package: "];
+			for(NSString *tweakData in dependanciesArray)
+			{
+				NSArray *dataArray = [tweakData componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+				if([dataArray[0] rangeOfString:bundleID].location != NSNotFound)
+				{
+					for(NSString *line in dataArray)
+					{
+						if([line rangeOfString:@"Depends:"].location != NSNotFound || [line rangeOfString:@"Pre-Depends:"].location != NSNotFound)
+						{
+							if([line rangeOfString:@"mobilesubstrate"].location != NSNotFound)
+								needsRespring = true;
+						}
+					}
+					break;
+				}
+			}
+
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedStringP(@"FOUND_TITLE",nil) message:[NSString stringWithFormat:NSLocalizedStringP(@"FOUND_MESSAGE",nil), title, bundleID] delegate:self cancelButtonTitle:NSLocalizedStringP(@"NO",nil) otherButtonTitles:NSLocalizedStringP(@"FOUND_OK_TITLE",nil),nil];
 
 			[alert show];

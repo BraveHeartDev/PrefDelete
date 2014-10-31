@@ -1,0 +1,10 @@
+"ERROR_CANCEL_TITLE" = "Chiudi";
+"ERROR_TITLE" = "Errore";
+"FOUND_MESSAGE" = "%@ (%@) trovato. Desideri rimuoverlo?";
+"FOUND_OK_TITLE" = "Disinstalla";
+"FOUND_TITLE" = "Stato";
+"NO" = "NO";
+"NOT_FOUND_MESSAGE" = "Pachetto non trovato. Questo bundle non fa riferimento ad un tweak (system bundle/App bundle).";
+"RESPRING_BUTTON" = "Respring";
+"RESPRING_MESSAGE" = "Il dispositivo richiede un respring per garantire una corretta rimozione del pacchetto.";
+"RESPRING_TITLE" = "Respring Richiesto";

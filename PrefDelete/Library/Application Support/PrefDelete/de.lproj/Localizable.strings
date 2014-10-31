@@ -1,0 +1,10 @@
+"ERROR_CANCEL_TITLE" = "Schließen";
+"ERROR_TITLE" = "Fehler";
+"FOUND_MESSAGE" = "%@ (%@) wurde gefunden. Möchtest du es deinstallieren?";
+"FOUND_OK_TITLE" = "Deinstallieren";
+"FOUND_TITLE" = "Status";
+"NO" = "Nein";
+"NOT_FOUND_MESSAGE" = "Paket nicht gefunden. Dieser Eintrag ist kein Tweak (System Eintrag/App Eintrag).";
+"RESPRING_MESSAGE" = "Dieses Gerät muss neugestartet werden, damit das Paket korrekt deinstalliert werden kann.";
+"RESPRING_BUTTON" = "Gerät neustarten";
+"RESPRING_TITLE" = "Neustarten";

@@ -1,7 +1,10 @@
 "ERROR_CANCEL_TITLE" = "Annuler";
 "ERROR_TITLE" = "Erreur";
 "FOUND_MESSAGE" = "%@ (%@) a été trouvé. Voulez-vous le désinstaller?";
-"FOUND_OK_TITLE" = "Désinstaller";
-"FOUND_TITLE" = "Désinstallation";
-"NO" = "NON";
+"FOUND_OK_TITLE" = "Oui";
+"FOUND_TITLE" = "Désinstaller";
+"NO" = "Non";
 "NOT_FOUND_MESSAGE" = "Paquet introuvable. Cette cellule n'est pas une cellule de tweak (Cellule du système/Cellule de l'app).";
+"RESPRING_BUTTON" = "Respring";
+"RESPRING_MESSAGE" = "L'appareil doit faire un Respring pour désinstaller correctement le paquet.";
+"RESPRING_TITLE" = "Respring";

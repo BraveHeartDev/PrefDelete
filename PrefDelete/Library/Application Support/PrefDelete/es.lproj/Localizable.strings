@@ -1,0 +1,10 @@
+"ERROR_CANCEL_TITLE" = "Descartar";
+"ERROR_TITLE" = "Error";
+"FOUND_MESSAGE" = "%@ (%@) ha sido encontrado. Te gustaria Desinstalarlo?";
+"FOUND_OK_TITLE" = "Desinstalar";
+"FOUND_TITLE" = "Estado";
+"NO" = "NO";
+"NOT_FOUND_MESSAGE" = "El paquete no a sido encontrado. Esta celda no es para ajustar (system cell/App cell).";
+"RESPRING_BUTTON" = "Respring Dispositivo";
+"RESPRING_MESSAGE" = "El dispositive necesita respring para desinstalar el paquete correctamente.";
+"RESPRING_TITLE" = "Respring";
